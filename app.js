@@ -27,9 +27,9 @@ app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
 
 // Test route
-// app.get('/',(req,res)=>{
-//     res.send('API is running....')
-// })
+app.get('/',(req,res)=>{
+    res.send('API is running....')
+})
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
