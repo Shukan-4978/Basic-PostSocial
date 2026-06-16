@@ -31,14 +31,18 @@ app.get('/',(req,res)=>{
     res.send('API is running....')
 })
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Server is  running on port ${PORT}`);
-    try{
-        mongoose.connect(process.env.MONGO_URI).then(()=>{console.log("MongoDB Connected Successfully");
-        })
-    }catch(error){
-        console.log(`MongoDB Connection Error:`, error);
-    }
-    
-})
+
+const PORT = process.env.PORT || 5000;
+
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("MongoDB Connected Successfully");
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error("MongoDB Connection Error:", error);
+    });
