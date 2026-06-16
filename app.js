@@ -31,17 +31,18 @@ app.get('/',(req,res)=>{
     res.send('API is running....')
 })
 
-
 const PORT = process.env.PORT || 5000;
 
+// Start server FIRST
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+// Connect MongoDB separately
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB Connected Successfully");
-
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
     })
     .catch((error) => {
         console.error("MongoDB Connection Error:", error);
